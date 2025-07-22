@@ -18,6 +18,6 @@ This tool is perfect for children, educators, and anyone looking to reinforce th
 
 This project is free to use and is maintained by a dedicated developer. If you find this tool helpful and would like to support its continued development, please consider making a donation. Your support helps keep the project alive and ad-free.
 
-**Donation Address:** jessealex208@gmail.com
+**Donation Address:** Paypal: jessealex208@gmail.com
 
 Thank you for your support!
