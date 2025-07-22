@@ -2,7 +2,7 @@
 
 ## Description
 
-Character Trainer is an interactive educational tool designed to help users learn numbers, letters, and shapes in a fun and engaging way. The application displays characters on the screen and announces them, creating a multisensory learning experience. It features several modes, including numbers, letters, shapes, and a mixed mode that combines all character types. The display duration is adjustable, allowing users to customize the pace of the training.
+Mindsight Play is an interactive training tool designed to help anyone learn to read numbers, letters, and shapes while their eyes are closed, in a fun and engaging way. The application displays characters on the screen and announces them, creating a multisensory learning experience. It features several modes, including numbers, letters, shapes, and a mixed mode that combines all character types. The display duration is adjustable, allowing users to customize the pace of the training.
 
 This tool is perfect for children, educators, and anyone looking to reinforce their knowledge of basic characters. The clean, minimalist interface and intuitive controls make it easy to use for all ages.
 
@@ -18,6 +18,6 @@ This tool is perfect for children, educators, and anyone looking to reinforce th
 
 This project is free to use and is maintained by a dedicated developer. If you find this tool helpful and would like to support its continued development, please consider making a donation. Your support helps keep the project alive and ad-free.
 
-**Donation Address:** XXX@XXX
+**Donation Address:** jessealex208@gmail.com
 
 Thank you for your support!
