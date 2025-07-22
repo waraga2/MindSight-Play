@@ -1,0 +1,51 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: sans-serif;
+    text-align: center;
+    margin: 0; /* Ensure no default margin */
+    padding: 0; /* Ensure no default padding */
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Hide scrollbars */
+}
+
+#character-display {
+    /* Make font size relative to the viewport height for large, responsive text */
+    font-size: 60vh; 
+    font-weight: bold;
+    /* Set height to be a large portion of the viewport */
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Add pointer cursor for pause/resume */
+}
+
+/* Ensure SVGs scale within the display area */
+#character-display svg {
+    width: 80%;
+    height: 80%;
+}
+
+#status-display {
+    display: none; /* Hide the status display as requested */
+}
+
+#controls {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+#start-button.hidden {
+    display: none;
+}
