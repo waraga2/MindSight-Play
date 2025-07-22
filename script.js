@@ -28,6 +28,10 @@ let displayDuration = 4000;
 let isRunning = false;
 let isPaused = false;
 let cycleTimer = null;
+let audio; // Keep a reference to the current audio object
+let audioQueue = [];
+let currentAudioPromise = null;
+
 
 function getRandomElement(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
@@ -71,40 +75,59 @@ function generateCharacter() {
 }
 
 function playAudioSequence(files) {
-    return new Promise((resolve) => {
-        if (!files || files.length === 0 || isPaused) {
+    if (isPaused) {
+        audioQueue = files;
+        return Promise.resolve();
+    }
+
+    return new Promise((resolve, reject) => {
+        if (!files || files.length === 0) {
             resolve();
             return;
         }
 
         let index = 0;
-        const audio = new Audio();
+        // Stop any previously playing audio
+        if (audio && !audio.paused) {
+            audio.pause();
+            audio.currentTime = 0;
+        }
+        audio = new Audio();
+
+        const playNext = () => {
+            if (isPaused) {
+                // Save the rest of the queue
+                audioQueue = files.slice(index);
+                resolve(); // Resolve the promise to let the cycle continue if needed
+                return;
+            }
+            if (index < files.length) {
+                audio.src = files[index];
+                audio.play().catch(e => {
+                    console.error(`Error playing audio: ${files[index]}`, e);
+                    index++;
+                    playNext(); // Try next file
+                });
+            } else {
+                resolve();
+            }
+        };
 
         audio.addEventListener('ended', () => {
             index++;
-            if (index < files.length && !isPaused) {
-                audio.src = files[index];
-                audio.play();
-            } else {
-                resolve();
-            }
+            playNext();
         });
 
         audio.addEventListener('error', (e) => {
-            console.error(`Error playing audio: ${files[index]}`, e);
+            console.error(`Error with audio element for ${files[index]}:`, e);
             index++;
-            if (index < files.length && !isPaused) {
-                audio.src = files[index];
-                audio.play();
-            } else {
-                resolve();
-            }
+            playNext(); // Try next file
         });
 
-        audio.src = files[index];
-        audio.play();
+        playNext();
     });
 }
+
 
 async function runTrainingCycle() {
     if (!isRunning || isPaused) return;
@@ -118,7 +141,11 @@ async function runTrainingCycle() {
     const initialSound = (currentMode === 'mixed' && soundTypeCheckbox.checked)
         ? `Music/Types/${type}.mp3`
         : 'beep.mp3';
-    await playAudioSequence([initialSound]);
+
+    currentAudioPromise = playAudioSequence([initialSound]);
+    await currentAudioPromise;
+    currentAudioPromise = null;
+
 
     if (!isRunning || isPaused) return;
 
@@ -129,7 +156,7 @@ async function runTrainingCycle() {
         characterDisplay.style.color = colorValue;
     }
 
-    cycleTimer = setTimeout(async () => {
+    cycleTimer = new PausableTimer(async () => {
         if (!isRunning || isPaused) return;
 
         const audioFiles = [];
@@ -140,15 +167,17 @@ async function runTrainingCycle() {
         } else if (letters.includes(character)) {
             audioFiles.push(`Music/Letters/${character}.mp3`);
         } else if (shapes.includes(character)) {
-            // Use the character name, which now matches the audio file (e.g., 'Cresent')
             audioFiles.push(`Music/Shapes/${character}.mp3`);
         }
 
-        await playAudioSequence(audioFiles);
+        currentAudioPromise = playAudioSequence(audioFiles);
+        await currentAudioPromise;
+        currentAudioPromise = null;
+
 
         if (!isRunning || isPaused) return;
 
-        cycleTimer = setTimeout(runTrainingCycle, 2000);
+        cycleTimer = new PausableTimer(runTrainingCycle, 2000);
 
     }, displayDuration);
 }
@@ -206,24 +235,70 @@ function stopTraining() {
     isRunning = false;
     isPaused = false;
     if (cycleTimer) {
-        clearTimeout(cycleTimer);
+        cycleTimer.pause(); // Effectively clears the timer
         cycleTimer = null;
     }
+    if (audio && !audio.paused) {
+        audio.pause();
+    }
+    audioQueue = [];
     characterDisplay.innerHTML = '';
     startButton.classList.remove('hidden');
 }
 
+function PausableTimer(callback, delay) {
+    let timerId, start, remaining = delay;
+
+    this.pause = function() {
+        window.clearTimeout(timerId);
+        remaining -= Date.now() - start;
+    };
+
+    this.resume = function() {
+        start = Date.now();
+        window.clearTimeout(timerId);
+        timerId = window.setTimeout(callback, remaining);
+    };
+
+    this.resume();
+}
+
+
 function togglePause() {
     if (!isRunning) return;
     isPaused = !isPaused;
+
     if (isPaused) {
+        // Pause the main cycle timer
         if (cycleTimer) {
-            clearTimeout(cycleTimer);
+            cycleTimer.pause();
+        }
+        // Pause the audio if it's playing
+        if (audio && !audio.paused) {
+            audio.pause();
         }
     } else {
-        runTrainingCycle();
+        // Resume the main cycle timer
+        if (cycleTimer) {
+            cycleTimer.resume();
+        }
+        // Resume audio if there's a queue
+        if (audio && audio.paused) {
+             // If there was a queue, play it. Otherwise, the main flow will handle it.
+             if (audioQueue.length > 0) {
+                playAudioSequence(audioQueue);
+                audioQueue = []; // Clear queue after starting
+             } else {
+                // If no queue, just resume the sound if it was paused mid-sound
+                audio.play().catch(e => console.error("Error resuming audio:", e));
+             }
+        } else if (!currentAudioPromise) {
+            // If no audio was playing and no promise is pending, continue the cycle
+            runTrainingCycle();
+        }
     }
 }
+
 
 // --- Event Listeners ---
 
