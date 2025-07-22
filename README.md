@@ -1,4 +1,4 @@
-# Character Trainer
+# Mindsight Trainer
 
 ## Description
 
