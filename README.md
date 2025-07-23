@@ -24,7 +24,7 @@ Thank you for your support!
 
 Special Thanks To:
 
-Rob Freeman
-Nikolay Denisov & Marina
-Wendy Gallant
+Rob Freeman,
+Nikolay Denisov & Marina,
+Wendy Gallant,
 VibraVision
