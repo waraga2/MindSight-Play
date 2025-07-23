@@ -150,7 +150,8 @@ async function runTrainingCycle() {
     if (!isRunning || isPaused) return;
 
     if (shapes.includes(character)) {
-        characterDisplay.innerHTML = createShape(character, colorValue);
+        const inversion = getRandomInversion();
+        characterDisplay.innerHTML = createShape(character, colorValue, inversion);
     } else {
         characterDisplay.textContent = character;
         characterDisplay.style.color = colorValue;
@@ -182,50 +183,68 @@ async function runTrainingCycle() {
     }, displayDuration);
 }
 
-function createShape(shape, colorValue) {
+function getRandomInversion() {
+    const rand = Math.random();
+    if (rand < 0.33) {
+        return 'none';
+    } else if (rand < 0.66) {
+        return 'lateral';
+    } else {
+        return 'vertical';
+    }
+}
+
+function createShape(shape, colorValue, inversion = 'none') {
     let svg;
+    let transform = '';
+    if (inversion === 'lateral') {
+        transform = 'scale(-1, 1) translate(-100, 0)';
+    } else if (inversion === 'vertical') {
+        transform = 'scale(1, -1) translate(0, -100)';
+    }
+
     switch (shape) {
         case 'Square':
-            svg = `<svg viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Triangle':
-            svg = `<svg viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><polygon points="50,10 90,90 10,90" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Circle':
-            svg = `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Plus': // Slimmer plus sign
-            svg = `<svg viewBox="0 0 100 100"><rect x="40" y="10" width="20" height="80" fill="${colorValue}" /><rect x="10" y="40" width="80" height="20" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><g transform="${transform}"><rect x="40" y="10" width="20" height="80" fill="${colorValue}" /><rect x="10" y="40" width="80" height="20" fill="${colorValue}" /></g></svg>`;
             break;
         case 'Rectangle':
-            svg = `<svg viewBox="0 0 100 100"><rect x="10" y="25" width="80" height="50" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><rect x="10" y="25" width="80" height="50" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Oval':
-            svg = `<svg viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="45" ry="30" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><ellipse cx="50" cy="50" rx="45" ry="30" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Star':
-            svg = `<svg viewBox="0 0 100 100"><polygon points="50,5 61,40 98,40 68,62 79,95 50,75 21,95 32,62 2,40 39,40" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><polygon points="50,5 61,40 98,40 68,62 79,95 50,75 21,95 32,62 2,40 39,40" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Arrow':
-            svg = `<svg viewBox="0 0 100 100"><polygon points="50,10 70,40 60,40 60,90 40,90 40,40 30,40" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><polygon points="50,10 70,40 60,40 60,90 40,90 40,40 30,40" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Cresent': // Corrected SVG path, linked to the misspelled name to match audio file
-            svg = `<svg viewBox="0 0 100 100"><path d="M 50,10 A 40,40 0 0 1 50,90 A 60,60 0 0 0 50,10 Z" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><path d="M 50,10 A 40,40 0 0 1 50,90 A 60,60 0 0 0 50,10 Z" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Cross':
-            svg = `<svg viewBox="0 0 100 100"><path d="M 20,10 L 50,40 L 80,10 L 90,20 L 60,50 L 90,80 L 80,90 L 50,60 L 20,90 L 10,80 L 40,50 L 10,20 Z" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><path d="M 20,10 L 50,40 L 80,10 L 90,20 L 60,50 L 90,80 L 80,90 L 50,60 L 20,90 L 10,80 L 40,50 L 10,20 Z" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Diamond':
-            svg = `<svg viewBox="0 0 100 100"><polygon points="50,5 95,50 50,95 5,50" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><polygon points="50,5 95,50 50,95 5,50" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Heart':
-            svg = `<svg viewBox="0 0 100 100"><path d="M 50 95 C 20 75, 10 55, 10 40 C 10 20, 30 5, 50 25 C 70 5, 90 20, 90 40 C 90 55, 80 75, 50 95 Z" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><path d="M 50 95 C 20 75, 10 55, 10 40 C 10 20, 30 5, 50 25 C 70 5, 90 20, 90 40 C 90 55, 80 75, 50 95 Z" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Pentagon':
-            svg = `<svg viewBox="0 0 100 100"><polygon points="50,5 95,40 80,95 20,95 5,40" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><polygon points="50,5 95,40 80,95 20,95 5,40" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
         case 'Trapezoid':
-            svg = `<svg viewBox="0 0 100 100"><polygon points="20,10 80,10 95,90 5,90" fill="${colorValue}" /></svg>`;
+            svg = `<svg viewBox="0 0 100 100"><polygon points="20,10 80,10 95,90 5,90" fill="${colorValue}" transform="${transform}" /></svg>`;
             break;
     }
     return svg;
