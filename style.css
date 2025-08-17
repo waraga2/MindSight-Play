@@ -3,33 +3,55 @@ body {
     color: white;
     font-family: sans-serif;
     text-align: center;
-    margin: 0; /* Ensure no default margin */
-    padding: 0; /* Ensure no default padding */
+    margin: 0;
+    padding: 0;
     width: 100vw;
     height: 100vh;
-    overflow: hidden; /* Hide scrollbars */
+    overflow: hidden;
 }
 
 #character-display {
-    /* Make font size relative to the viewport height for large, responsive text */
-    font-size: 60vh; 
+    position: absolute;
+    font-size: 50vh;
     font-weight: bold;
-    /* Set height to be a large portion of the viewport */
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer; /* Add pointer cursor for pause/resume */
+    cursor: pointer;
+    /* Base transform for centering on the random top/left coordinates */
+    transform: translate(-50%, -50%);
 }
 
-/* Ensure SVGs scale within the display area */
+/* Combined keyframe animation for pulsating glow and growth */
+@keyframes pulsate-and-grow {
+    0% {
+        filter: drop-shadow(0 0 8px var(--glow-color));
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        filter: drop-shadow(0 0 22px var(--glow-color)) drop-shadow(0 0 35px var(--glow-color));
+        transform: translate(-50%, -50%) scale(1.05); /* Subtle growth */
+    }
+    100% {
+        filter: drop-shadow(0 0 8px var(--glow-color));
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+#character-display.glow {
+    animation: pulsate-and-grow 5s ease-in-out infinite;
+}
+
+#character-display.glow span {
+    text-shadow:
+        -1.5px -1.5px 0 var(--glow-color),
+        1.5px -1.5px 0 var(--glow-color),
+        -1.5px 1.5px 0 var(--glow-color),
+        1.5px 1.5px 0 var(--glow-color);
+}
+
 #character-display svg {
-    width: 80%;
-    height: 80%;
-}
-
-#status-display {
-    display: none; /* Hide the status display as requested */
+    width: 100%;
+    height: 100%;
+    stroke-width: 1.5px;
+    stroke: var(--glow-color);
 }
 
 #controls {
@@ -39,7 +61,15 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+}
+
+#controls.hidden-controls {
+    opacity: 0;
+    pointer-events: none;
 }
 
 .hidden {
@@ -48,4 +78,71 @@ body {
 
 #start-button.hidden {
     display: none;
+}
+
+#frequency-control, #scope-control, #binary-mode-options, #mixed-mode-options {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 150px;
+    height: 10px;
+    background: #555;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+    border-radius: 5px;
+}
+
+input[type="range"]:hover {
+    opacity: 1;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #4CAF50;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #4CAF50;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+select, button {
+    padding: 5px 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: white;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #444;
+}
+
+#start-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    font-size: 24px;
+    border-radius: 10px;
 }
