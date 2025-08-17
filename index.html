@@ -2,32 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
     <title>Character Trainer</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="controls">
-        <label for="mode-select">Choose a mode:</label>
+        <label for="mode-select">Mode:</label>
         <select id="mode-select">
             <option value="numbers">Numbers</option>
             <option value="letters">Letters</option>
             <option value="shapes">Shapes</option>
+            <option value="binary">Binary</option>
             <option value="mixed">Mixed</option>
         </select>
+        <div id="scope-control">
+            <label for="scope-select">Pool:</label>
+            <select id="scope-select">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="full">Large</option>
+            </select>
+        </div>
+        <div id="binary-mode-options" class="hidden">
+            <label for="pair-select">Pair:</label>
+            <select id="pair-select"></select>
+        </div>
         <div id="mixed-mode-options" class="hidden">
             <input type="checkbox" id="sound-type-checkbox">
-            <label for="sound-type-checkbox">Announce character type instead of beep</label>
+            <label for="sound-type-checkbox">Announce character type</label>
         </div>
         <div id="frequency-control">
-            <label for="frequency-slider">Display Duration (s):</label>
+            <label for="frequency-slider">Duration:</label>
             <input type="range" id="frequency-slider" min="1" max="10" value="4">
             <span id="frequency-value">4s</span>
         </div>
     </div>
-    <div id="character-display"></div>
-    <div id="status-display"></div>
-    <button id="start-button">Start</button>
+    <div id="character-display">
+        <div id="character-content"></div>
+    </div>
+    <button id="start-button">Play</button>
     <script src="script.js"></script>
 </body>
 </html>
