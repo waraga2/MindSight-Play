@@ -7,12 +7,17 @@ Mindsight is the ability to remote view objects either in your local environment
 Again, what is Mindsight Play? its an interactive training tool designed to help anyone, and I mean anyone no age limit, learn to read numbers, letters, and shapes while their eyes are closed, in a fun and engaging way. The application displays characters on the screen and announces them, creating a multisensory learning experience. It features several modes, including numbers, letters, shapes, and a mixed mode that combines all character types. The display duration is adjustable, allowing users to customize the pace of the training. Enjoy the journey
 
 ## How to Use
-1.  **Git Clone or Download the project and extract the zip file.**
-2.  **Open `index.html` in your web browser.**
-3.  **Choose a mode:** Select from numbers, letters, shapes, or mixed mode from the dropdown menu.
-4.  **Adjust the display duration:** Use the slider to set how long each character is displayed on the screen.
-5.  **Click the "Start" button** to begin the training.
-6.  **Press the spacebar or click the screen** to pause or resume the training.
+1.  **Get the project:** Git Clone or Download the project and extract the zip file.
+2.  **Open the application:** Open `index.html` in your web browser.
+3.  **Choose a training mode:**
+    *   **Numbers, Letters, Shapes:** Train on various types of characters.
+    *   **Binary:** Train on specific, randomized pairs of characters (e.g., '0' and '1').
+    *   **Mixed:** Train on a mix of all character types.
+4.  **Adjust your settings:**
+    *   **Pool:** Select the size of the character pool (Small, Medium, or Large).
+    *   **Duration:** Use the slider to set how long each character is displayed.
+5.  **Click the "Play" button** to begin the training.
+6.  **Close your eyes or preferably have them covered with a blindfold.**
 
 ## Donations
 
