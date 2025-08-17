@@ -10,11 +10,13 @@ Again, what is Mindsight Play? its an interactive training tool designed to help
 1.  **Get the project:** Git Clone or Download the project and extract the zip file.
 2.  **Open the application:** Open `index.html` in your web browser.
 3.  **Choose a training mode:**
-    *   **Numbers, Letters, Shapes:** Train on various types of characters.
-    *   **Binary:** Train on specific, randomized pairs of characters (e.g., '0' and '1').
-    *   **Mixed:** Train on a mix of all character types.
+    *   **Numbers.**
+    *   **Letters.**
+    *   **Shapes.**
+    *   **Binary:** Train on randomized pairs of characters (e.g., '0' and '1').
+    *   **Mixed:** Train on a mix of all character types i.e Numbers, letters, and Shapes.
 4.  **Adjust your settings:**
-    *   **Pool:** Select the size of the character pool (Small, Medium, or Large).
+    *   **Pool:** Select the pool size or sample size of the characters e.g Small, Medium, or Large.
     *   **Duration:** Use the slider to set how long each character is displayed.
 5.  **Click the "Play" button** to begin the training.
 6.  **Close your eyes or preferably have them covered with a blindfold.**
