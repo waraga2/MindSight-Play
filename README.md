@@ -1,3 +1,16 @@
+
+<img width="882" height="479" alt="Screenshot 2025-09-28 at 10-32-45 Character Trainer" src="https://github.com/user-attachments/assets/011b5ab8-d253-451e-a905-2058e6f35644" />
+<img width="353" height="401" alt="Screenshot 2025-09-28 at 10-34-10 Character Trainer" src="https://github.com/user-attachments/assets/43c1cba1-4923-41de-9675-f7f463f11dca" />
+<img width="357" height="342" alt="Screenshot 2025-09-28 at 10-35-43 Character Trainer" src="https://github.com/user-attachments/assets/b4f94498-dd66-4c1e-b0ce-a086505aaad3" />
+<img width="315" height="315" alt="Screenshot 2025-09-28 at 10-32-02 Character Trainer" src="https://github.com/user-attachments/assets/37c2c6a8-66d2-4e2c-907f-744c823761bd" />
+<img width="958" height="824" alt="Screenshot 2025-09-28 at 10-31-14 Character Trainer" src="https://github.com/user-attachments/assets/76df54a7-c275-4680-8106-8147404f328c" />
+<img width="939" height="833" alt="Screenshot 2025-09-28 at 10-30-13 Character Trainer" src="https://github.com/user-attachments/assets/ec3782fb-680a-4f2d-ae0a-3f2636e767b0" />
+<img width="1244" height="700" alt="Screenshot 2025-09-17 at 10-17-42 Character Trainer" src="https://github.com/user-attachments/assets/f1b44539-45f7-4132-ad4e-ae411bcc71b1" />
+
+
+
+
+
 # Mindsight Trainer
 
 ## Description
